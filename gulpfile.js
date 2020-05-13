@@ -3,16 +3,17 @@
 let gulp = require('gulp');
 let jshint = require('gulp-jshint');
 
-gulp.task('default',['jshint','test','serve']);
-
-gulp.task('jshint',()=>{
+gulp.task('jshint', () => {
 	return gulp.src('./*.js')
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
-})
-.task('test',()=>{
+});
+gulp.task('test', done => {
 	require('./test.js');
-})
-.task('serve',()=>{
+	done();
+});
+gulp.task('serve', () => 	{
 	require('./main.js');
 });
+
+gulp.task('default', gulp.series('jshint', 'test', 'serve'));
